@@ -1,39 +1,39 @@
 # Upwork Proposal Generator
 
-Upwork 채용 공고와 내 프로필을 입력하면 AI가 **커버레터 · 적합도 점수 · 강조 포인트 · 견적 가이드**를 자동으로 생성해주는 Next.js 웹 앱.
+A Next.js web app that generates a **cover letter · fit score · key points · rate guide** from an Upwork job posting and your freelancer profile.
 
-이력서(PDF/DOCX)를 업로드하면 AI가 프로필을 구조화해 저장하고, 다음 방문 시에도 이어 쓸 수 있습니다.
-
----
-
-## 주요 기능
-
-| 기능 | 설명 |
-|------|------|
-| 📄 공고 분석 | 텍스트 붙여넣기 또는 북마클릿으로 Upwork 공고 내용 입력 |
-| 🤖 AI 분석 | 커버레터 · 적합도 점수 · 강조 포인트 · 견적 가이드 생성 |
-| 📁 이력서 업로드 | PDF/DOCX 업로드 → AI가 스킬/경력/프로젝트 자동 추출 |
-| 💾 프로필 저장 | 로그인 시 프로필 자동 저장 · 수정 (500ms debounce autosave) |
-| 🌐 KO / EN 전환 | UI 라벨 + AI 생성 텍스트 전체를 한국어/영어로 전환 |
-| 🔖 북마클릿 | Upwork 공고 페이지에서 클릭 한 번으로 내용 클립보드 복사 |
+Upload your resume (PDF/DOCX) and the AI will parse and save your profile so you can pick up where you left off on your next visit.
 
 ---
 
-## 기술 스택
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| 📄 Job Input | Paste job text directly or use the bookmarklet to copy from Upwork |
+| 🤖 AI Analysis | Generates cover letter, fit score, key points, and rate guide |
+| 📁 Resume Upload | Upload PDF/DOCX → AI automatically extracts skills, experience, and projects |
+| 💾 Profile Persistence | Auto-saves profile edits on login (500ms debounce) |
+| 🌐 KO / EN Toggle | Switches both UI labels and all AI-generated text between Korean and English |
+| 🔖 Bookmarklet | One-click copy of Upwork job posting content to clipboard |
+
+---
+
+## Tech Stack
 
 - **Framework**: Next.js 16 + TypeScript + App Router
 - **Auth**: [Clerk](https://clerk.com)
 - **Database**: PostgreSQL + [Prisma](https://prisma.io)
-- **AI**: Anthropic Claude / OpenAI GPT-4o (`AI_PROVIDER` 환경변수로 선택)
+- **AI**: Anthropic Claude / OpenAI GPT-4o (selected via `AI_PROVIDER` env var)
 - **Styling**: Tailwind CSS v3
 - **Validation**: Zod
 - **Testing**: Vitest (unit) · Playwright (E2E)
 
 ---
 
-## 시작하기
+## Getting Started
 
-### 1. 저장소 클론 및 의존성 설치
+### 1. Clone and install
 
 ```bash
 git clone https://github.com/dznomad007/upwork-proposal-generator.git
@@ -42,30 +42,30 @@ nvm use        # Node 25 (.nvmrc)
 npm install
 ```
 
-### 2. 환경변수 설정
+### 2. Configure environment variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-`.env.local`을 열어 아래 값을 채웁니다:
+Fill in the following values in `.env.local`:
 
-| 변수 | 설명 |
-|------|------|
-| `AI_PROVIDER` | `anthropic` 또는 `openai` |
+| Variable | Description |
+|----------|-------------|
+| `AI_PROVIDER` | `anthropic` or `openai` |
 | `ANTHROPIC_API_KEY` | [Anthropic Console](https://console.anthropic.com) |
 | `OPENAI_API_KEY` | [OpenAI Platform](https://platform.openai.com) |
 | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | [Clerk Dashboard](https://dashboard.clerk.com) |
 | `CLERK_SECRET_KEY` | Clerk Dashboard |
-| `DATABASE_URL` | PostgreSQL 연결 문자열 |
+| `DATABASE_URL` | PostgreSQL connection string |
 
-### 3. 데이터베이스 마이그레이션
+### 3. Run database migrations
 
 ```bash
 npx prisma migrate dev
 ```
 
-### 4. 개발 서버 실행
+### 4. Start the development server
 
 ```bash
 npm run dev
@@ -74,83 +74,83 @@ npm run dev
 
 ---
 
-## 사용 방법
+## Usage
 
-### 기본 흐름 (로그인 불필요)
+### Basic flow (no login required)
 
-1. **채용 공고** 입력란에 Upwork 공고 내용을 붙여넣습니다.
-2. **공고 구조화** 버튼을 클릭합니다.
-3. **프로필** 입력란에 스킬 · 경력 · 프로젝트를 입력합니다.
-4. **분석 시작** 버튼을 클릭합니다.
-5. 커버레터 · 적합도 · 강조 포인트 · 견적 가이드 결과를 확인합니다.
+1. Paste the Upwork job posting content into the **Job Posting** field.
+2. Click **Parse Job**.
+3. Fill in your skills, experience, and projects in the **Profile** field.
+4. Click **Analyze**.
+5. Review the cover letter, fit score, key points, and rate guide.
 
-### 북마클릿 (공고 자동 복사)
+### Bookmarklet (auto-copy job posting)
 
-1. 앱 상단 **채용 공고 → 북마클릿 탭**으로 이동합니다.
-2. 🔖 버튼을 북마크바로 드래그하거나 코드를 복사해 수동 설치합니다.
-3. Upwork 공고 페이지에서 저장한 북마크를 클릭하면 내용이 클립보드에 복사됩니다.
-4. 앱으로 돌아와 **텍스트 붙여넣기** 탭에서 `Cmd+V`로 붙여넣습니다.
+1. Go to the **Job Posting → Bookmarklet** tab in the app.
+2. Drag the 🔖 button to your bookmarks bar, or copy the code and install it manually.
+3. On any Upwork job page, click the saved bookmark to copy the content to your clipboard.
+4. Return to the app and paste with `Cmd+V` in the **Paste Text** tab.
 
-### 이력서 업로드 (로그인 필요)
+### Resume upload (login required)
 
-1. 로그인 후 **프로필** 영역의 업로드 영역에 PDF/DOCX를 드래그하거나 클릭합니다.
-2. AI가 스킬 · 경력 · 프로젝트를 자동 추출합니다.
-3. 동일 파일 재업로드 시 AI 재호출 없이 캐시에서 즉시 반환됩니다.
+1. After logging in, drag and drop a PDF/DOCX onto the upload area in the **Profile** section, or click to browse.
+2. The AI automatically extracts your skills, experience, and projects.
+3. Re-uploading the same file returns cached results instantly without re-calling the AI.
 
 ---
 
-## 주요 명령어
+## Commands
 
 ```bash
-npm run dev              # 개발 서버
-npm run build            # 프로덕션 빌드
-npm run lint             # 린트
-npm test                 # Vitest 단위 테스트
-npm run test:e2e         # Playwright E2E 테스트
+npm run dev              # Start dev server
+npm run build            # Production build
+npm run lint             # Lint
+npm test                 # Vitest unit tests
+npm run test:e2e         # Playwright E2E tests
 
-npx prisma migrate dev   # DB 마이그레이션
-npx prisma studio        # DB GUI
+npx prisma migrate dev   # Run DB migrations
+npx prisma studio        # Open DB GUI
 ```
 
 ---
 
-## 프로젝트 구조
+## Project Structure
 
 ```
 ├── app/
-│   ├── page.tsx                  # 메인 페이지
-│   ├── layout.tsx                # ClerkProvider
+│   ├── page.tsx                  # Main page
+│   ├── layout.tsx                # ClerkProvider wrapper
 │   └── api/
-│       ├── parse-job/            # 공고 텍스트 → 구조화 JSON
-│       ├── analyze/              # 프로필 + 공고 → 분석 결과
-│       ├── scrape/               # URL → 공고 텍스트 (보조)
-│       ├── resumes/upload/       # 이력서 업로드 + AI 파싱
-│       └── profile/              # 프로필 CRUD
-├── components/                   # UI 컴포넌트
+│       ├── parse-job/            # Job text → structured JSON
+│       ├── analyze/              # Profile + job → analysis result
+│       ├── scrape/               # URL → job text (fallback)
+│       ├── resumes/upload/       # Resume upload + AI parsing
+│       └── profile/              # Profile CRUD
+├── components/                   # UI components
 ├── hooks/
-│   └── useProfile.ts             # 프로필 상태 + autosave
+│   └── useProfile.ts             # Profile state + autosave
 ├── lib/
-│   ├── ai/                       # AI 프로바이더 추상화
-│   ├── i18n.ts                   # KO/EN 번역 딕셔너리
-│   ├── scraping/upwork.ts        # HTML 파싱 폴백 체인
-│   └── validation/schemas.ts    # Zod 스키마
-├── prisma/schema.prisma          # DB 스키마
-└── types/index.ts                # 공통 타입
+│   ├── ai/                       # AI provider abstraction
+│   ├── i18n.ts                   # KO/EN translation dictionary
+│   ├── scraping/upwork.ts        # HTML parsing fallback chain
+│   └── validation/schemas.ts    # Zod schemas
+├── prisma/schema.prisma          # DB schema
+└── types/index.ts                # Shared types
 ```
 
 ---
 
-## AI 프로바이더 전환
+## Switching AI Provider
 
-`.env.local`의 `AI_PROVIDER` 값만 바꾸면 됩니다.
+Just change `AI_PROVIDER` in `.env.local`:
 
 ```env
-AI_PROVIDER=anthropic   # Claude 사용
-AI_PROVIDER=openai      # GPT-4o 사용
+AI_PROVIDER=anthropic   # Use Claude
+AI_PROVIDER=openai      # Use GPT-4o
 ```
 
 ---
 
-## 라이선스
+## License
 
 MIT
